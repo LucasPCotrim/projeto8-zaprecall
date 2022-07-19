@@ -1,0 +1,68 @@
+
+.main-page {
+  width: 100%;
+  min-height: 100vh;
+  border: 1px solid #DBDBDB;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 42px;
+}
+.main-page > header {
+  height: 60px;
+  max-width: calc(100% - 10px);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 30px;
+  margin-bottom: 51px;
+}
+header > img {
+  width: 52px;
+  height: 60px;
+}
+header > .title {
+  font-family: 'Righteous';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 45px;
+  text-align: center;
+  letter-spacing: -0.012em;
+  color: #FFFFFF;
+}
+
+.main-page > .flash-card-container {
+  width: min(min(567.12px, max(300px, calc(100% - 76px))),calc(100% - 76px));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 25px;
+}
+
+
+
+/* Desktop */
+@media (min-width: 900px) {
+  .main-page {
+    padding-top: 82px;
+  }
+  .main-page > header {
+    margin-bottom: 110px;
+  }
+  .main-page > .flash-card-container {
+    width: 567px;
+  }
+  header > img {
+    width: 86.96px;
+    height: 100px;
+  }
+  header > .title {
+    font-size: 64px;
+    line-height: 79px;
+  }
+  .main-page > .flash-card-container {
+    gap: 16.68px;
+  }
+}

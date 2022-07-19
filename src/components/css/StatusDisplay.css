@@ -1,0 +1,25 @@
+.status-display {
+  width: 100%;
+  min-height: 70px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FFFFFF;
+  box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05);
+}
+.status-display > h3 {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  background-color: #FFFFFF;
+  color: #333333;
+}
+
+
+/* Desktop */
+@media (min-width: 900px) {
+  
+}

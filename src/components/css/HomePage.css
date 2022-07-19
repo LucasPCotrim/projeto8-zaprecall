@@ -2,7 +2,6 @@
 .home-page {
   width: 100%;
   min-height: 100vh;
-  background: #FB6B6B;
   border: 1px solid #DBDBDB;
   display: flex;
   flex-direction: column;
@@ -37,7 +36,6 @@
   border: 1px solid #D70900;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
   border-radius: 5px;
-
   font-family: 'Recursive';
   font-style: normal;
   font-weight: 400;
@@ -45,4 +43,5 @@
   line-height: 22px;
   text-align: center;
   color: #D70900;
+  cursor: pointer;
 }
