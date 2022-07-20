@@ -14,11 +14,51 @@
   padding-top: 9px;
   padding-bottom: 9px;
 }
+
+.status-display > .recall-results h2 {
+  font-family: 'Recursive';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+  color: #333333;
+}
+.status-display > .recall-results p {
+  width: 222px;
+  font-family: 'Recursive';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  color: #333333;
+  margin-bottom: 14px;
+}
+.status-display > .recall-results > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 15px;
+  margin-bottom: 14px;
+}
+
 .status-display > h3 {
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
   background-color: #FFFFFF;
   color: #333333;
+}
+
+.recall-progress-icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.recall-progress-icons > img {
+  width: 23px;
+  height: 23px;
 }
 

@@ -13,8 +13,6 @@ export default function FlashCard({
   user_answer
 }) {
 
-  console.log(state);
-
   function open_card(pos) {
     let card = state.decks.filter((deck)=>deck.active)[0].cards[pos];
     if(card.user_answer!=='') return;
@@ -62,9 +60,9 @@ export default function FlashCard({
               <CardBack
                 component_ref={flashcardBackRef}
                 answer={answer}
-                handle_nao_lembrei={()=>answer_card(position,'answer_nao_lembrei')}
-                handle_quase_nao_lembrei={()=>answer_card(position,'answer_quase_nao_lembrei')}
-                handle_zap={()=>answer_card(position,'answer_zap')}
+                handle_nao_lembrei={()=>answer_card(position,'nao-lembrei')}
+                handle_quase_nao_lembrei={()=>answer_card(position,'quase-nao-lembrei')}
+                handle_zap={()=>answer_card(position,'zap')}
               />
             </>
           )
@@ -148,15 +146,22 @@ function update_decks(state, setState, action, pos){
           return (index===pos) ? {...card, opened: true} : {...card}
         } else if (action==='flip'){
           return (index===pos) ? {...card, flipped: true} : {...card}
-        } else if (action==='answer_zap'){
+        } else if (action==='zap'){
           return (index===pos) ? {...card, user_answer: 'zap'} : {...card}
-        } else if (action==='answer_quase_nao_lembrei'){
+        } else if (action==='quase-nao-lembrei'){
           return (index===pos) ? {...card, user_answer: 'quase-nao-lembrei'} : {...card}
-        } else if (action==='answer_nao_lembrei'){
+        } else if (action==='nao-lembrei'){
           return (index===pos) ? {...card, user_answer: 'nao-lembrei'} : {...card}
         } else throw new Error('Invalid Action!')
       });
-      return {...deck, cards:cards}
+
+      let new_user_answers;
+      if (action === 'nao-lembrei' || action === 'quase-nao-lembrei' || action === 'zap'){
+        new_user_answers = [...deck.user_answers, action];
+      } else{
+        new_user_answers = [...deck.user_answers];
+      }
+      return {...deck, cards:cards, user_answers: new_user_answers}
     }
   })
 

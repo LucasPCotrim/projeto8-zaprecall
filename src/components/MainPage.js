@@ -30,7 +30,10 @@ export default function MainPage({state, setState}) {
           )
         )}
       </div>
-      <StatusDisplay state={state} setState={setState}/>
+      <StatusDisplay
+        user_answers={state.decks.filter((d)=>d.active)[0].user_answers}
+        deck_length={state.decks.filter((d)=>d.active)[0].cards.length}
+      />
     </div>
   )
 }

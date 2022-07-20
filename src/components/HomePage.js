@@ -1,6 +1,6 @@
 import './css/HomePage.css'
 
-function HomePage({state, setState}) {
+export default function HomePage({state, setState}) {
 
   function go_to_main_page(){
     if(state.screen === 'homepage'){
@@ -16,5 +16,3 @@ function HomePage({state, setState}) {
     </div>
   )
 }
-
-export default HomePage
