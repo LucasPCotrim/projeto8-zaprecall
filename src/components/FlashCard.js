@@ -3,7 +3,15 @@ import './css/FlashCard.css'
 
 
 
-function FlashCard({state, setState, position}) {
+export default function FlashCard({
+  state,
+  setState,
+  position,
+  opened,
+  question,
+  answer,
+  user_answer
+}) {
 
   console.log(state);
 
@@ -30,48 +38,34 @@ function FlashCard({state, setState, position}) {
     update_decks(state, setState, ans, pos);
   }
 
-
   const flashcardRef = React.useRef(null);
   const flashcardFrontRef = React.useRef(null);
   const flashcardBackRef = React.useRef(null);
-
-  let card = state.decks.filter((deck)=>deck.active)[0]
-                  .cards[position];
-  const header_images = {'': './img/play.svg',
-                         'nao-lembrei': './img/nao-lembrei.svg',
-                         'quase-nao-lembrei': './img/quase-nao-lembrei.svg',
-                         'zap': './img/zap.svg'}
-
   
   return (
     <div className='flash-card' ref={flashcardRef}>
-      {(!card.opened || card.user_answer !== '')
+      {(!opened || user_answer !== '')
         ? (
-            <div className="card-header">
-              <h2 className={card.user_answer}>Pergunta {position+1}</h2>
-              <img src={header_images[card.user_answer]} alt="play card button" onClick={()=>open_card(position)}/>
-            </div>
+            <CardHeader
+              user_answer={user_answer}
+              position={position}
+              handle_open={()=>open_card(position)}
+            />
           )
         : (
             <>
-              <div className="card-front" ref={flashcardFrontRef}>
-                <p>{card.question}</p>
-                <img src="./img/flip.svg" alt="flip card button" onClick={()=>flip_card(position)}/>
-              </div>
-              <div className='card-back' ref={flashcardBackRef}>
-                <p>{card.answer}</p>
-                <div className="button-row">
-                  <button onClick={()=>answer_card(position,'answer_nao_lembrei')}>
-                    Não Lembrei
-                  </button>
-                  <button onClick={()=>answer_card(position,'answer_quase_nao_lembrei')}>
-                    Quase não lembrei
-                  </button>
-                  <button onClick={()=>answer_card(position,'answer_zap')}>
-                    Zap!
-                  </button>
-                </div>
-              </div>
+              <CardFront
+                component_ref={flashcardFrontRef}
+                question={question}
+                handle_flip={()=>flip_card(position)}
+              />
+              <CardBack
+                component_ref={flashcardBackRef}
+                answer={answer}
+                handle_nao_lembrei={()=>answer_card(position,'answer_nao_lembrei')}
+                handle_quase_nao_lembrei={()=>answer_card(position,'answer_quase_nao_lembrei')}
+                handle_zap={()=>answer_card(position,'answer_zap')}
+              />
             </>
           )
       }
@@ -81,8 +75,66 @@ function FlashCard({state, setState, position}) {
 
 
 
+// Auxiliary components
+//-------------------------------------------------------
 
 
+function CardHeader({user_answer, position, handle_open}){
+
+  const header_images = {'': './img/play.svg',
+                         'nao-lembrei': './img/nao-lembrei.svg',
+                         'quase-nao-lembrei': './img/quase-nao-lembrei.svg',
+                         'zap': './img/zap.svg'}
+
+  return (
+    <div className="card-header">
+      <h2 className={user_answer}>Pergunta {position+1}</h2>
+      <img src={header_images[user_answer]} alt="play card button" onClick={handle_open}/>
+    </div>
+  );
+}
+
+
+function CardFront({component_ref, question, handle_flip}){
+  return (
+    <div className="card-front" ref={component_ref}>
+      <p>{question}</p>
+      <img src="./img/flip.svg" alt="flip card button" onClick={handle_flip}/>
+    </div>
+  );
+}
+
+
+function CardBack({component_ref, answer, handle_nao_lembrei, handle_quase_nao_lembrei, handle_zap}){
+  return (
+    <div className='card-back' ref={component_ref}>
+      <p>{answer}</p>
+      <div className="button-row">
+        <button onClick={handle_nao_lembrei}>
+          Não Lembrei
+        </button>
+        <button onClick={handle_quase_nao_lembrei}>
+          Quase não lembrei
+        </button>
+        <button onClick={handle_zap}>
+          Zap!
+        </button>
+      </div>
+    </div>
+  );
+}
+
+
+
+
+
+
+
+
+
+
+// Auxiliary functions
+//-------------------------------------------------------
 function update_decks(state, setState, action, pos){
 
   let decks = state.decks.map((deck)=>{
@@ -110,6 +162,3 @@ function update_decks(state, setState, action, pos){
   setState({...state, decks:decks})
 }
 
-
-
-export default FlashCard

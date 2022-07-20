@@ -13,11 +13,15 @@ function MainPage({state, setState}) {
       </header>
       <div className="flash-card-container">
         {state.decks.filter((d)=>d.active)[0]
-                    .cards.map((_,index)=>
+                    .cards.map((card,index)=>
           (<FlashCard
               state={state}
               setState={setState}
               position={index}
+              opened={card.opened}
+              question={card.question}
+              answer={card.answer}
+              user_answer={card.user_answer}
               key={index}
             />
           )
