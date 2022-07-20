@@ -5,9 +5,10 @@
   margin: 0;
   padding: 0;
   font-family: 'Recursive';
-  background-color: #FB6B6B;
+  
 }
 
 body {
   width: 100vw;
+  background-color: #FB6B6B;
 }

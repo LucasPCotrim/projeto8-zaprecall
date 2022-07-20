@@ -1,8 +1,136 @@
 
 .flash-card {
   width: 100%;
-  height: 65px;
+  min-height: 65px;
   background-color: #FFFFFF;
   box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
   border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+
+
+.flash-card > .card-header {
+  background-color: inherit;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.flash-card > .card-header > h2 {
+  font-family: 'Recursive';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  color: #333333;
+}
+.flash-card > .card-header > img {
+  width: 20px;
+  height: 23px;
+  cursor: pointer;
+}
+.card-header > h2.nao-lembrei {
+  text-decoration-line: line-through;
+  color: #FF3030;
+}
+.card-header > h2.quase-nao-lembrei {
+  text-decoration-line: line-through;
+  color: #FF922E;;
+}
+.card-header > h2.zap {
+  text-decoration-line: line-through;
+  color: #2FBE34;
+}
+
+
+.flash-card > .card-front {
+  position: relative;
+  background-color: inherit;
+  width: 100%;
+  height: 131px;
+  padding-top: 18px;
+}
+.flash-card > .card-front > p {
+  font-family: 'Recursive';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  color: #333333;
+}
+.flash-card > .card-front > img {
+  position: absolute;
+  bottom: 6px;
+  right: 0;
+  width: 30px;
+  height:20px;
+  cursor: pointer;
+}
+
+
+.flash-card > .card-back {
+  position: relative;
+  background-color: inherit;
+  width: 100%;
+  height: 131px;
+  padding-top: 18px;
+  padding-bottom: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.flash-card > .card-back > p {
+  font-family: 'Recursive';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  color: #333333;
+}
+.flash-card > .card-back > .button-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.button-row > button {
+  width: calc((100% - 46px) / 3);
+  min-height: 37px;
+  padding: 0 2%;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  font-family: 'Recursive';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: center;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+.button-row > button:nth-child(1) {
+  background: #FF3030;
+}
+.button-row > button:nth-child(2) {
+  background: #FF922E;
+}
+.button-row > button:nth-child(3) {
+  background: #2FBE34;
+}
+
+
+
+/* Desktop */
+@media (min-width: 900px) {
+  .flash-card > .card-front,
+  .flash-card > .card-back {
+    height: 181px;
+  }
 }

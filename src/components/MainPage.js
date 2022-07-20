@@ -13,6 +13,10 @@ function MainPage() {
         <FlashCard />
         <FlashCard />
         <FlashCard />
+        <FlashCard />
+        <FlashCard />
+        <FlashCard />
+        <FlashCard />
       </div>
       <StatusDisplay />
     </div>
