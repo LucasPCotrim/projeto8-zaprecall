@@ -16,15 +16,15 @@ function FlashCard({state, setState, position}) {
   }
 
   function flip_card(pos) {
-    flashcardBackRef.current.style.transform = "rotateY(0deg)";
-    flashcardFrontRef.current.style.transform = "rotateY(-180deg)";
+    flashcardBackRef.current.style.transform = "rotateX(0deg)";
+    flashcardFrontRef.current.style.transform = "rotateX(-180deg)";
 
     update_decks(state, setState, 'flip', pos);
   }
 
   function answer_card(pos, ans) {
-    flashcardBackRef.current.style.transform = "rotateY(180deg)";
-    flashcardFrontRef.current.style.transform = "rotateY(0deg)";
+    flashcardBackRef.current.style.transform = "rotateX(180deg)";
+    flashcardFrontRef.current.style.transform = "rotateX(0deg)";
     flashcardRef.current.style.height = "65px";
 
     update_decks(state, setState, ans, pos);
