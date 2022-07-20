@@ -6,8 +6,6 @@ import StatusDisplay from './StatusDisplay'
 
 export default function MainPage({state, setState}) {
   
-  //shuffle_deck(state, setState);
-
   return (
     <div className="main-page">
       <header>
@@ -41,16 +39,3 @@ export default function MainPage({state, setState}) {
 
 
 
-// Auxiliary functions
-//-------------------------------------------------------
-
-// function shuffle_deck(state, setState) {
-//   const shuffled_cards = state.decks
-//     .filter((deck)=>deck.active)[0]
-//     .cards.sort(() => Math.random() - 0.5);
-//   const suffled_decks = state.decks.map((deck)=>(deck.active)
-//     ? ({...deck, cards:shuffled_cards})
-//     : ({...deck}))
-
-//   setState({...state, decks:suffled_decks})
-// }

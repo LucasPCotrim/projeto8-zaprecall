@@ -3,7 +3,7 @@ import HomePage from './components/HomePage'
 import MainPage from './components/MainPage'
 
 export default  function App() {
-  const [state, setState] = React.useState(initial_state);
+  const [state, setState] = React.useState(shuffle_deck(initial_state));
   return (
     <> {(state.screen === 'homepage')
         ? (<HomePage state={state} setState={setState}/>)
@@ -75,4 +75,19 @@ const initial_state = {
       user_answers: []
     }
   ]
+}
+
+
+// Auxiliary functions
+//-------------------------------------------------------
+
+function shuffle_deck(state){
+  const shuffled_cards = state.decks
+    .filter((deck)=>deck.active)[0]
+    .cards.sort(() => Math.random() - 0.5);
+  const suffled_decks = state.decks.map((deck)=>(deck.active)
+    ? ({...deck, cards:shuffled_cards})
+    : ({...deck}))
+
+  return {...state, decks:suffled_decks};
 }
