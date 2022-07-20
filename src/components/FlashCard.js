@@ -5,23 +5,29 @@ import './css/FlashCard.css'
 
 function FlashCard({state, setState, position}) {
 
+  console.log(state);
 
-
-  function open_card(pos){
-    console.log(state);
+  function open_card(pos) {
+    let card = state.decks.filter((deck)=>deck.active)[0].cards[pos];
+    if(card.user_answer!=='') return;
     flashcardRef.current.style.height = "131px";
 
-    let decks = update_decks(state, 'open', pos);
-    setState({...state, decks:decks})
+    update_decks(state, setState, 'open', pos);
   }
 
   function flip_card(pos) {
-    console.log(state);
     flashcardBackRef.current.style.transform = "rotateY(0deg)";
     flashcardFrontRef.current.style.transform = "rotateY(-180deg)";
 
-    let decks = update_decks(state, 'flip', pos);
-    setState({...state, decks:decks})
+    update_decks(state, setState, 'flip', pos);
+  }
+
+  function answer_card(pos, ans) {
+    flashcardBackRef.current.style.transform = "rotateY(180deg)";
+    flashcardFrontRef.current.style.transform = "rotateY(0deg)";
+    flashcardRef.current.style.height = "65px";
+
+    update_decks(state, setState, ans, pos);
   }
 
 
@@ -31,15 +37,19 @@ function FlashCard({state, setState, position}) {
 
   let card = state.decks.filter((deck)=>deck.active)[0]
                   .cards[position];
-  
+  const header_images = {'': './img/play.svg',
+                         'nao-lembrei': './img/nao-lembrei.svg',
+                         'quase-nao-lembrei': './img/quase-nao-lembrei.svg',
+                         'zap': './img/zap.svg'}
 
+  
   return (
     <div className='flash-card' ref={flashcardRef}>
-      {(!card.opened)
+      {(!card.opened || card.user_answer !== '')
         ? (
             <div className="card-header">
-              <h2>Pergunta {position+1}</h2>
-              <img src="./img/play.svg" alt="play card button" onClick={()=>open_card(position)}/>
+              <h2 className={card.user_answer}>Pergunta {position+1}</h2>
+              <img src={header_images[card.user_answer]} alt="play card button" onClick={()=>open_card(position)}/>
             </div>
           )
         : (
@@ -51,9 +61,15 @@ function FlashCard({state, setState, position}) {
               <div className='card-back' ref={flashcardBackRef}>
                 <p>{card.answer}</p>
                 <div className="button-row">
-                  <button>Não Lembrei</button>
-                  <button>Quase não lembrei</button>
-                  <button>Zap!</button>
+                  <button onClick={()=>answer_card(position,'answer_nao_lembrei')}>
+                    Não Lembrei
+                  </button>
+                  <button onClick={()=>answer_card(position,'answer_quase_nao_lembrei')}>
+                    Quase não lembrei
+                  </button>
+                  <button onClick={()=>answer_card(position,'answer_zap')}>
+                    Zap!
+                  </button>
                 </div>
               </div>
             </>
@@ -67,7 +83,7 @@ function FlashCard({state, setState, position}) {
 
 
 
-function update_decks(state, action, pos){
+function update_decks(state, setState, action, pos){
 
   let decks = state.decks.map((deck)=>{
     if (!deck.active){
@@ -79,13 +95,19 @@ function update_decks(state, action, pos){
           return (index===pos) ? {...card, opened: true} : {...card}
         } else if (action==='flip'){
           return (index===pos) ? {...card, flipped: true} : {...card}
+        } else if (action==='answer_zap'){
+          return (index===pos) ? {...card, user_answer: 'zap'} : {...card}
+        } else if (action==='answer_quase_nao_lembrei'){
+          return (index===pos) ? {...card, user_answer: 'quase-nao-lembrei'} : {...card}
+        } else if (action==='answer_nao_lembrei'){
+          return (index===pos) ? {...card, user_answer: 'nao-lembrei'} : {...card}
         } else throw new Error('Invalid Action!')
       });
       return {...deck, cards:cards}
     }
   })
 
-  return decks;
+  setState({...state, decks:decks})
 }
 
 
