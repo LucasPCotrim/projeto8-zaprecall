@@ -150,12 +150,3 @@
   background: #2FBE34;
 }
 
-
-
-/* Desktop */
-@media (min-width: 900px) {
-  .flash-card > .card-front,
-  .flash-card > .card-back {
-    height: 181px;
-  }
-}

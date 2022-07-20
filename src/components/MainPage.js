@@ -18,6 +18,7 @@ function MainPage({state, setState}) {
               state={state}
               setState={setState}
               position={index}
+              key={index}
             />
           )
         )}
