@@ -56,9 +56,28 @@
   align-items: center;
   justify-content: center;
   gap: 5px;
+  margin-bottom: 20px;
 }
 .recall-progress-icons > img {
   width: 23px;
   height: 23px;
+}
+
+.status-display> .restart_button {
+  background: #FB6B6B;
+  width: 167px;
+  height: 32px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-family: 'Recursive';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #FFFFFF;
 }
 

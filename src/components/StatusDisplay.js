@@ -1,11 +1,19 @@
 import './css/StatusDisplay.css'
 
-export default function StatusDisplay({user_answers, deck_length}) {
+export default function StatusDisplay({state, setState}) {
+
+  const user_answers = state.decks.filter((d)=>d.active)[0].user_answers;
+  const deck_length = state.decks.filter((d)=>d.active)[0].cards.length;
+
+  const finished = (user_answers.length === deck_length);
+  const remembered_all = (!user_answers.includes('nao-lembrei'));
+
   return (
     <div className="status-display">
-      <RecallResults user_answers={user_answers} deck_length={deck_length}/>
+      <RecallResults finished={finished} remembered_all={remembered_all}/>
       <RecallProgress user_answers={user_answers} deck_length={deck_length}/>
       <RecallProgressIcons user_answers={user_answers}/>
+      <RestartButton state={state} setState={setState} finished={finished}/>
     </div>
   )
 }
@@ -15,32 +23,21 @@ export default function StatusDisplay({user_answers, deck_length}) {
 // Auxiliary components
 //-------------------------------------------------------
 
-function RecallResults({user_answers, deck_length}) {
-  const finished = (user_answers.length === deck_length);
+function RecallResults({finished, remembered_all}) {
 
   if (finished){
-    const remembered_all = (!user_answers.includes('nao-lembrei'))
-    if(remembered_all){
-      return (
-        <div className='recall-results'>
-          <div>
-            <img src="./img/parabens.svg" alt="parabens emoji"/>
-            <h2>Parabéns!</h2>
-          </div>
-          <p>Você não esqueceu de nenhum flashcard!</p>
+    return (
+      <div className='recall-results'>
+        <div>
+          <img src={`./img/` + ((remembered_all) ? `parabens` : `putz`) + `.svg`} alt="emoji"/>
+          <h2>{(remembered_all) ? `Parabéns!` : `Putz...`}</h2>
         </div>
-      );
-    } else{
-      return (
-        <div className='recall-results'>
-          <div>
-            <img src="./img/putz.svg" alt="putz emoji"/>
-            <h2>Putz...</h2>
-          </div>
-          <p>Ainda faltam alguns... mas não desanime!</p>
-        </div>
-      );
-    }
+        <p>{(remembered_all)
+          ? `Você não esqueceu de nenhum flashcard!`
+          : `Ainda faltam alguns... mas não desanime!`}
+        </p>
+      </div>
+    );
   } else {
     return (<></>);
   }
@@ -63,5 +60,31 @@ function RecallProgressIcons({user_answers}) {
         <img src={`./img/`+ans+`.svg`} alt="answer icon" key={index}/>
       )})}
     </div>
+  );
+}
+
+
+function RestartButton({state, setState, finished}) {
+
+  function restart_recall(){
+    let decks = state.decks.map((deck)=>{
+      if (!deck.active){
+        return {...deck}
+      }
+      else{
+        let cards = deck.cards.map((card)=>{
+          return {...card, opened: false, flipped: false, user_answer: ''}
+        });
+        let new_user_answers = [];
+        return {...deck, cards:cards, user_answers: new_user_answers}
+      }
+    })
+    setState({...state, screen: 'homepage', decks:decks});
+  }
+
+  return (
+    (finished)
+      ? (<div class="restart_button" onClick={restart_recall}>REINICIAR RECALL</div>)
+      : (<></>)
   );
 }
