@@ -5,7 +5,7 @@ import MainPage from './components/MainPage'
 export default  function App() {
   const [state, setState] = React.useState(shuffle_deck(initial_state));
   return (
-    <> {(state.screen === 'homepage')
+    <> {(state.screen !== 'mainpage')
         ? (<HomePage state={state} setState={setState}/>)
         : (<MainPage state={state} setState={setState}/>)}
     </>
@@ -17,13 +17,13 @@ export default  function App() {
 //-------------------------------------------------------
 
 const initial_state = {
-  screen: 'homepage',
+  screen: 'homepage_select_deck',
   goal: 0,
   decks: [
     {
       id: 1,
       name: 'Você manja de React?',
-      active: true,
+      active: false,
       cards: [
         {id: 1,
          opened: false,
@@ -75,6 +75,50 @@ const initial_state = {
          user_answer: ''}
       ],
       user_answers: []
+    },
+    {
+      id: 2,
+      name: 'Javascripto',
+      active: false,
+      cards: [
+        {id: 1,
+         opened: false,
+         flipped: false,
+         question: 'Qual o papel/responsabilidade do JavaScript na construção de um site?',
+         answer: 'Nos permite criar sites mais interativos, reagindo ao comportamento do usuário',
+         user_answer: ''},
+        {id: 2,
+         opened: false,
+         flipped: false,
+         question: 'O que é árvore DOM?',
+         answer: 'É a árvore de elementos do HTML representada como objetos no JavaScript',
+         user_answer: ''},
+        {id: 3,
+         opened: false,
+         flipped: false,
+         question: 'Eventos no JavaScript são __',
+         answer: 'Ações ou ocorrências que acontecem nos elementos acarretadas pelo usuário',
+         user_answer: ''},
+        {id: 4,
+         opened: false,
+         flipped: false,
+         question: 'Qual diferença de requisições GET e POST?',
+         answer: 'GET para pegar informações e POST para enviar informações',
+         user_answer: ''},
+        {id: 5,
+         opened: false,
+         flipped: false,
+         question: 'Status Codes são __',
+         answer: 'Códigos para dar mais informações sobre uma requisição (sucesso ou erro de cliente/servidor)',
+         user_answer: ''},
+        {id: 6,
+         opened: false,
+         flipped: false,
+         question: 'O que são Higher-Order Functions (HOFs)?',
+         answer: 'Funções que recebem outras funções como parâmetro',
+         user_answer: ''}
+      ],
+      user_answers: []
     }
   ]
 }
@@ -84,12 +128,9 @@ const initial_state = {
 //-------------------------------------------------------
 
 function shuffle_deck(state){
-  const shuffled_cards = state.decks
-    .filter((deck)=>deck.active)[0]
-    .cards.sort(() => Math.random() - 0.5);
-  const suffled_decks = state.decks.map((deck)=>(deck.active)
-    ? ({...deck, cards:shuffled_cards})
-    : ({...deck}))
-
+  const suffled_decks = state.decks.map((deck)=>{
+    const shuffled_cards = deck.cards.sort(() => Math.random() - 0.5);
+    return {...deck, cards:shuffled_cards};
+  })
   return {...state, decks:suffled_decks};
 }

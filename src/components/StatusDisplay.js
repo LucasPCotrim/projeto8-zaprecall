@@ -88,10 +88,10 @@ function RestartButton({state, setState, finished}) {
           return {...card, opened: false, flipped: false, user_answer: ''}
         });
         let new_user_answers = [];
-        return {...deck, cards:cards, user_answers: new_user_answers}
+        return {...deck, active:false, cards:cards, user_answers: new_user_answers}
       }
     })
-    setState({...state, screen: 'homepage', goal: 0, decks:decks});
+    setState({...state, screen: 'homepage_select_deck', goal: 0, decks:decks});
   }
 
   return (
