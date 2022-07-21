@@ -93,7 +93,7 @@ function InputDeckScreen({state, selectDeckRef, handleSelectDeckChange, buttonDe
         <option disabled hidden value="DEFAULT" id='default-option'>Escolha seu deck</option>
         {state.decks.map((deck, index)=>{
           return (
-            <option value={deck.id} key={index}>
+            <option className='deck-dropdown-select' value={deck.id} key={index}>
               {deck.name}
             </option>
           )
