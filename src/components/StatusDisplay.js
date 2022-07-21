@@ -6,14 +6,25 @@ export default function StatusDisplay({state, setState}) {
   const deck_length = state.decks.filter((d)=>d.active)[0].cards.length;
 
   const finished = (user_answers.length === deck_length);
-  const remembered_all = (!user_answers.includes('nao-lembrei'));
+  const n_zaps = user_answers.filter((ans)=>ans === 'zap').length
+  const zap_goal_reached = (n_zaps >= state.goal);
 
   return (
     <div className="status-display">
-      <RecallResults finished={finished} remembered_all={remembered_all}/>
-      <RecallProgress user_answers={user_answers} deck_length={deck_length}/>
-      <RecallProgressIcons user_answers={user_answers}/>
-      <RestartButton state={state} setState={setState} finished={finished}/>
+      <RecallResults
+        finished={finished}
+        n_zaps={n_zaps}
+        zap_goal={state.goal}
+        zap_goal_reached={zap_goal_reached}/>
+      <RecallProgress
+        user_answers={user_answers}
+        deck_length={deck_length}/>
+      <RecallProgressIcons
+        user_answers={user_answers}/>
+      <RestartButton
+        state={state}
+        setState={setState}
+        finished={finished}/>
     </div>
   )
 }
@@ -23,18 +34,19 @@ export default function StatusDisplay({state, setState}) {
 // Auxiliary components
 //-------------------------------------------------------
 
-function RecallResults({finished, remembered_all}) {
+function RecallResults({finished, n_zaps, zap_goal, zap_goal_reached}) {
+  
 
   if (finished){
     return (
       <div className='recall-results'>
         <div>
-          <img src={`./img/` + ((remembered_all) ? `parabens` : `putz`) + `.svg`} alt="emoji"/>
-          <h2>{(remembered_all) ? `Parabéns!` : `Putz...`}</h2>
+          <img src={`./img/` + ((zap_goal_reached) ? `parabens` : `putz`) + `.svg`} alt="emoji"/>
+          <h2>{(zap_goal_reached) ? `Parabéns!` : `Putz...`}</h2>
         </div>
-        <p>{(remembered_all)
-          ? `Você não esqueceu de nenhum flashcard!`
-          : `Ainda faltam alguns... mas não desanime!`}
+        <p>{(zap_goal_reached)
+          ? (`Você alcançou sua meta de zaps! ${n_zaps}/${zap_goal}`)
+          : (`Ainda faltam alguns... mas não desanime! ${n_zaps}/${zap_goal}`)}
         </p>
       </div>
     );
@@ -79,7 +91,7 @@ function RestartButton({state, setState, finished}) {
         return {...deck, cards:cards, user_answers: new_user_answers}
       }
     })
-    setState({...state, screen: 'homepage', decks:decks});
+    setState({...state, screen: 'homepage', goal: 0, decks:decks});
   }
 
   return (

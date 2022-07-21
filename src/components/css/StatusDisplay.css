@@ -43,7 +43,7 @@
   margin-bottom: 14px;
 }
 
-.status-display > h3 {
+.status-display > .recall-progress {
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;

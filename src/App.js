@@ -18,9 +18,11 @@ export default  function App() {
 
 const initial_state = {
   screen: 'homepage',
+  goal: 0,
   decks: [
     {
       id: 1,
+      name: 'Você manja de React?',
       active: true,
       cards: [
         {id: 1,

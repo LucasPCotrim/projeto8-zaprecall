@@ -125,12 +125,6 @@ function CardBack({component_ref, answer, handle_nao_lembrei, handle_quase_nao_l
 
 
 
-
-
-
-
-
-
 // Auxiliary functions
 //-------------------------------------------------------
 
