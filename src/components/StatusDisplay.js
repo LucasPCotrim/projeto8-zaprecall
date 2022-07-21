@@ -91,7 +91,10 @@ function RestartButton({state, setState, finished}) {
         return {...deck, active:false, cards:cards, user_answers: new_user_answers}
       }
     })
-    setState({...state, screen: 'homepage_select_deck', goal: 0, decks:decks});
+    setState({...state, loading: true});
+    setTimeout(()=>{
+      setState({...state, screen: 'homepage_select_deck', goal: 0, loading: false, decks:decks});
+    }, 2100)
   }
 
   return (

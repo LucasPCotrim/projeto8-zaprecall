@@ -26,7 +26,11 @@ export default function HomePage({state, setState}) {
 
   function handleStartButton(){
     if (state.goal === 0) return;
-    setState({...state, screen: 'mainpage'});
+
+    setState({...state, loading: true});
+    setTimeout(()=>{
+      setState({...state, screen: 'mainpage'});
+    }, 2100)
   }
 
   function handleInputGoalChange(event){

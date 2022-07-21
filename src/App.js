@@ -1,9 +1,11 @@
 import React from 'react'
 import HomePage from './components/HomePage'
 import MainPage from './components/MainPage'
+import LoadingScreen from './components/LoadingScreen'
 
 export default  function App() {
   const [state, setState] = React.useState(shuffle_deck(initial_state));
+  if (state.loading) return (<LoadingScreen/>)
   return (
     <> {(state.screen !== 'mainpage')
         ? (<HomePage state={state} setState={setState}/>)
@@ -19,6 +21,7 @@ export default  function App() {
 const initial_state = {
   screen: 'homepage_select_deck',
   goal: 0,
+  loading: false,
   decks: [
     {
       id: 1,
