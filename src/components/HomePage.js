@@ -1,5 +1,6 @@
 import React from 'react'
-import './css/HomePage.css'
+import '../assets/css/HomePage.css'
+import logo_svg from '../assets/img/logo.svg' 
 
 
 export default function HomePage({state, setState}) {
@@ -55,7 +56,7 @@ export default function HomePage({state, setState}) {
 
   return (
     <div className='home-page'>
-      <img src="./img/logo.svg" alt="Logo"/>
+      <img src={logo_svg} alt="Logo"/>
       <h1 className='title'>ZapRecall</h1>
       <InputDeckScreen
         state={state}

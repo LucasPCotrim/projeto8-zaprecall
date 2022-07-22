@@ -1,6 +1,10 @@
 import React from 'react'
-import './css/FlashCard.css'
-
+import '../assets/css/FlashCard.css'
+import play_svg from '../assets/img/play.svg'
+import nao_lembrei_svg from '../assets/img/quase-nao-lembrei.svg'
+import quase_nao_lembrei_svg from '../assets/img/nao-lembrei.svg'
+import zap_svg from '../assets/img/zap.svg'
+import flip_svg from '../assets/img/flip.svg'
 
 
 export default function FlashCard({
@@ -79,10 +83,10 @@ export default function FlashCard({
 
 function CardHeader({user_answer, position, handle_open}){
 
-  const header_images = {'': './img/play.svg',
-                         'nao-lembrei': './img/nao-lembrei.svg',
-                         'quase-nao-lembrei': './img/quase-nao-lembrei.svg',
-                         'zap': './img/zap.svg'}
+  const header_images = {'': play_svg,
+                         'nao-lembrei': nao_lembrei_svg,
+                         'quase-nao-lembrei': quase_nao_lembrei_svg,
+                         'zap': zap_svg}
 
   return (
     <div className="card-header">
@@ -97,7 +101,7 @@ function CardFront({component_ref, question, handle_flip}){
   return (
     <div className="card-front" ref={component_ref}>
       <p>{question}</p>
-      <img src="./img/flip.svg" alt="flip card button" onClick={handle_flip}/>
+      <img src={flip_svg} alt="flip card button" onClick={handle_flip}/>
     </div>
   );
 }

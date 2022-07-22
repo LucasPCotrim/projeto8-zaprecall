@@ -1,4 +1,5 @@
 import React from 'react'
+import './assets/css/reset.css'
 import HomePage from './components/HomePage'
 import MainPage from './components/MainPage'
 import LoadingScreen from './components/LoadingScreen'

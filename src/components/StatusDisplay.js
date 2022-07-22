@@ -1,4 +1,10 @@
-import './css/StatusDisplay.css'
+import '../assets/css/StatusDisplay.css'
+import parabens_svg from '../assets/img/parabens.svg'
+import putz_svg from '../assets/img/putz.svg'
+import nao_lembrei_svg from '../assets/img/nao-lembrei.svg'
+import quase_nao_lembrei_svg from '../assets/img/quase-nao-lembrei.svg'
+import zap_svg from '../assets/img/zap.svg'
+
 
 export default function StatusDisplay({state, setState}) {
 
@@ -41,7 +47,7 @@ function RecallResults({finished, n_zaps, zap_goal, zap_goal_reached}) {
     return (
       <div className='recall-results'>
         <div>
-          <img src={`./img/` + ((zap_goal_reached) ? `parabens` : `putz`) + `.svg`} alt="emoji"/>
+          <img src={(zap_goal_reached) ? parabens_svg : putz_svg} alt="emoji"/>
           <h2>{(zap_goal_reached) ? `Parabéns!` : `Putz...`}</h2>
         </div>
         <p>{(zap_goal_reached)
@@ -66,10 +72,17 @@ function RecallProgress({user_answers, deck_length}) {
 
 
 function RecallProgressIcons({user_answers}) {
+  const icons_dict = 
+    {'nao-lembrei': nao_lembrei_svg,
+     'quase-nao-lembrei': quase_nao_lembrei_svg,
+     'zap': zap_svg}
+  
   return (
     <div className='recall-progress-icons'>
-      {user_answers.map((ans,index)=>{return (
-        <img src={`./img/`+ans+`.svg`} alt="answer icon" key={index}/>
+      {user_answers.map((ans,index)=>{
+        
+        return (
+        <img src={icons_dict[ans]} alt="answer icon" key={index}/>
       )})}
     </div>
   );

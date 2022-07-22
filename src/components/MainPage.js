@@ -1,4 +1,5 @@
-import './css/MainPage.css'
+import '../assets/css/MainPage.css'
+import logo_small_svg from '../assets/img/logo_small.svg'
 import FlashCard from './FlashCard'
 import StatusDisplay from './StatusDisplay'
 
@@ -9,7 +10,7 @@ export default function MainPage({state, setState}) {
   return (
     <div className="main-page">
       <header>
-        <img src="./img/logo_small.svg" alt="Logo"/>
+        <img src={logo_small_svg} alt="Logo"/>
         <h1 className='title'>ZapRecall</h1>
       </header>
       <div className="flash-card-container">
