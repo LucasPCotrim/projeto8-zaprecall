@@ -1,8 +1,8 @@
 import React from 'react'
 import '../assets/css/FlashCard.css'
 import play_svg from '../assets/img/play.svg'
-import nao_lembrei_svg from '../assets/img/quase-nao-lembrei.svg'
-import quase_nao_lembrei_svg from '../assets/img/nao-lembrei.svg'
+import nao_lembrei_svg from '../assets/img/nao-lembrei.svg'
+import quase_nao_lembrei_svg from '../assets/img/quase-nao-lembrei.svg'
 import zap_svg from '../assets/img/zap.svg'
 import flip_svg from '../assets/img/flip.svg'
 
