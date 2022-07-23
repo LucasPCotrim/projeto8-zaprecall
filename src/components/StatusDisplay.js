@@ -1,18 +1,17 @@
-import '../assets/css/StatusDisplay.css'
-import parabens_svg from '../assets/img/parabens.svg'
-import putz_svg from '../assets/img/putz.svg'
-import nao_lembrei_svg from '../assets/img/nao-lembrei.svg'
-import quase_nao_lembrei_svg from '../assets/img/quase-nao-lembrei.svg'
-import zap_svg from '../assets/img/zap.svg'
+import '../assets/css/StatusDisplay.css';
+import parabens_svg from '../assets/img/parabens.svg';
+import putz_svg from '../assets/img/putz.svg';
+import nao_lembrei_svg from '../assets/img/nao-lembrei.svg';
+import quase_nao_lembrei_svg from '../assets/img/quase-nao-lembrei.svg';
+import zap_svg from '../assets/img/zap.svg';
 
 
 export default function StatusDisplay({state, setState}) {
 
-  const user_answers = state.decks.filter((d)=>d.active)[0].user_answers;
+  const userAnswers = state.decks.filter((d)=>d.active)[0].userAnswers;
   const deck_length = state.decks.filter((d)=>d.active)[0].cards.length;
-
-  const finished = (user_answers.length === deck_length);
-  const n_zaps = user_answers.filter((ans)=>ans === 'zap').length
+  const finished = (userAnswers.length === deck_length);
+  const n_zaps = userAnswers.filter((ans)=>ans === 'zap').length;
   const zap_goal_reached = (n_zaps >= state.goal);
 
   return (
@@ -23,16 +22,16 @@ export default function StatusDisplay({state, setState}) {
         zap_goal={state.goal}
         zap_goal_reached={zap_goal_reached}/>
       <RecallProgress
-        user_answers={user_answers}
+        userAnswers={userAnswers}
         deck_length={deck_length}/>
       <RecallProgressIcons
-        user_answers={user_answers}/>
+        userAnswers={userAnswers}/>
       <RestartButton
         state={state}
         setState={setState}
         finished={finished}/>
     </div>
-  )
+  );
 }
 
 
@@ -62,24 +61,24 @@ function RecallResults({finished, n_zaps, zap_goal, zap_goal_reached}) {
 }
 
 
-function RecallProgress({user_answers, deck_length}) {
+function RecallProgress({userAnswers, deck_length}) {
   return (
     <h3 className='recall-progress'>
-      {user_answers.length + `/` + deck_length + ` Concluídos`}
+      {userAnswers.length + `/` + deck_length + ` Concluídos`}
     </h3>
-  )
+  );
 }
 
 
-function RecallProgressIcons({user_answers}) {
+function RecallProgressIcons({userAnswers}) {
   const icons_dict = 
     {'nao-lembrei': nao_lembrei_svg,
      'quase-nao-lembrei': quase_nao_lembrei_svg,
-     'zap': zap_svg}
+     'zap': zap_svg};
   
   return (
     <div className='recall-progress-icons'>
-      {user_answers.map((ans,index)=>{
+      {userAnswers.map((ans,index)=>{
         
         return (
         <img src={icons_dict[ans]} alt="answer icon" key={index}/>
@@ -92,22 +91,26 @@ function RecallProgressIcons({user_answers}) {
 function RestartButton({state, setState, finished}) {
 
   function restart_recall(){
-    let decks = state.decks.map((deck)=>{
+    const decks = state.decks.map((deck)=>{
       if (!deck.active){
         return {...deck}
       }
       else{
         let cards = deck.cards.map((card)=>{
-          return {...card, opened: false, flipped: false, user_answer: ''}
+          return {...card, opened: false, flipped: false, userAnswer: ''}
         });
-        let new_user_answers = [];
-        return {...deck, active:false, cards:cards, user_answers: new_user_answers}
+        let newUserAnswers = [];
+        return {...deck, active:false, cards:cards, userAnswers: newUserAnswers}
       }
-    })
+    });
     setState({...state, loading: true});
     setTimeout(()=>{
-      setState({...state, screen: 'homepage_select_deck', goal: 0, loading: false, decks:decks});
-    }, 2100)
+      setState({...state,
+        screen: 'homepage_select_deck',
+        goal: 0,
+        loading: false,
+        decks: decks});
+    }, 2100);
   }
 
   return (

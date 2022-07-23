@@ -1,5 +1,5 @@
-import '../assets/css/LoadingScreen.css'
-import logo_svg from '../assets/img/logo.svg' 
+import '../assets/css/LoadingScreen.css';
+import logo_svg from '../assets/img/logo.svg' ;
 
 export default function LoadingScreen() {
   return (
@@ -7,5 +7,5 @@ export default function LoadingScreen() {
       <img src={logo_svg} alt="Logo animation"/>
       <h1 className='title'>ZapRecall</h1>
     </div>
-  )
+  );
 }

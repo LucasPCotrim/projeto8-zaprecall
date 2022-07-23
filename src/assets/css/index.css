@@ -4,11 +4,14 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Recursive';
-  
 }
 
 body {
   width: 100vw;
   background-color: #FB6B6B;
+  font-family: 'Recursive';
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: center;
 }

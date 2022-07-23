@@ -1,10 +1,10 @@
-import React from 'react'
-import '../assets/css/FlashCard.css'
-import play_svg from '../assets/img/play.svg'
-import nao_lembrei_svg from '../assets/img/nao-lembrei.svg'
-import quase_nao_lembrei_svg from '../assets/img/quase-nao-lembrei.svg'
-import zap_svg from '../assets/img/zap.svg'
-import flip_svg from '../assets/img/flip.svg'
+import React from 'react';
+import '../assets/css/FlashCard.css';
+import play_svg from '../assets/img/play.svg';
+import nao_lembrei_svg from '../assets/img/nao-lembrei.svg';
+import quase_nao_lembrei_svg from '../assets/img/quase-nao-lembrei.svg';
+import zap_svg from '../assets/img/zap.svg';
+import flip_svg from '../assets/img/flip.svg';
 
 
 export default function FlashCard({
@@ -14,21 +14,21 @@ export default function FlashCard({
   opened,
   question,
   answer,
-  user_answer
+  userAnswer
 }) {
 
   function open_card(pos) {
-    let card = state.decks.filter((deck)=>deck.active)[0].cards[pos];
-    if(card.user_answer!=='') return;
+    const card = state.decks.filter((deck)=>deck.active)[0].cards[pos];
+    if(card.userAnswer!==''){
+      return;
+    }
     flashcardRef.current.style.height = "131px";
-
     update_decks(state, setState, 'open', pos);
   }
 
   function flip_card(pos) {
     flashcardBackRef.current.style.transform = "rotateX(0deg)";
     flashcardFrontRef.current.style.transform = "rotateX(-180deg)";
-
     update_decks(state, setState, 'flip', pos);
   }
 
@@ -36,7 +36,6 @@ export default function FlashCard({
     flashcardBackRef.current.style.transform = "rotateX(180deg)";
     flashcardFrontRef.current.style.transform = "rotateX(0deg)";
     flashcardRef.current.style.height = "65px";
-
     update_decks(state, setState, ans, pos);
   }
 
@@ -46,10 +45,10 @@ export default function FlashCard({
   
   return (
     <div className='flash-card' ref={flashcardRef}>
-      {(!opened || user_answer !== '')
+      {(!opened || userAnswer !== '')
         ? (
             <CardHeader
-              user_answer={user_answer}
+              userAnswer={userAnswer}
               position={position}
               handle_open={()=>open_card(position)}
             />
@@ -81,21 +80,21 @@ export default function FlashCard({
 //-------------------------------------------------------
 
 
-function CardHeader({user_answer, position, handle_open}){
-
-  const header_images = {'': play_svg,
-                         'nao-lembrei': nao_lembrei_svg,
-                         'quase-nao-lembrei': quase_nao_lembrei_svg,
-                         'zap': zap_svg}
+function CardHeader({userAnswer, position, handle_open}){
+  console.log('userAnswer = ', userAnswer);
+  const header_images =
+    {'': play_svg,
+     'nao-lembrei': nao_lembrei_svg,
+     'quase-nao-lembrei': quase_nao_lembrei_svg,
+     'zap': zap_svg};
 
   return (
     <div className="card-header">
-      <h2 className={user_answer}>Pergunta {position+1}</h2>
-      <img src={header_images[user_answer]} alt="play card button" onClick={handle_open}/>
+      <h2 className={userAnswer}>Pergunta {position+1}</h2>
+      <img src={header_images[userAnswer]} alt="play card button" onClick={handle_open}/>
     </div>
   );
 }
-
 
 function CardFront({component_ref, question, handle_flip}){
   return (
@@ -105,7 +104,6 @@ function CardFront({component_ref, question, handle_flip}){
     </div>
   );
 }
-
 
 function CardBack({component_ref, answer, handle_nao_lembrei, handle_quase_nao_lembrei, handle_zap}){
   return (
@@ -127,42 +125,41 @@ function CardBack({component_ref, answer, handle_nao_lembrei, handle_quase_nao_l
 }
 
 
-
-
 // Auxiliary functions
 //-------------------------------------------------------
 
 function update_decks(state, setState, action, pos){
 
-  let decks = state.decks.map((deck)=>{
+  const decks = state.decks.map((deck)=>{
     if (!deck.active){
-      return {...deck}
+      return {...deck};
     }
     else{
       let cards = deck.cards.map((card, index)=>{
         if (action==='open') {
-          return (index===pos) ? {...card, opened: true} : {...card}
+          return (index===pos) ? {...card, opened: true} : {...card};
         } else if (action==='flip'){
-          return (index===pos) ? {...card, flipped: true} : {...card}
+          return (index===pos) ? {...card, flipped: true} : {...card};
         } else if (action==='zap'){
-          return (index===pos) ? {...card, user_answer: 'zap'} : {...card}
+          return (index===pos) ? {...card, userAnswer: 'zap'} : {...card};
         } else if (action==='quase-nao-lembrei'){
-          return (index===pos) ? {...card, user_answer: 'quase-nao-lembrei'} : {...card}
+          return (index===pos) ? {...card, userAnswer: 'quase-nao-lembrei'} : {...card};
         } else if (action==='nao-lembrei'){
-          return (index===pos) ? {...card, user_answer: 'nao-lembrei'} : {...card}
-        } else throw new Error('Invalid Action!')
+          return (index===pos) ? {...card, userAnswer: 'nao-lembrei'} : {...card};
+        } else{
+          throw new Error('Invalid Action!');
+        }
       });
 
-      let new_user_answers;
+      let newUserAnswers;
       if (action === 'nao-lembrei' || action === 'quase-nao-lembrei' || action === 'zap'){
-        new_user_answers = [...deck.user_answers, action];
+        newUserAnswers = [...deck.userAnswers, action];
       } else{
-        new_user_answers = [...deck.user_answers];
+        newUserAnswers = [...deck.userAnswers];
       }
-      return {...deck, cards:cards, user_answers: new_user_answers}
+      return {...deck, cards:cards, userAnswers: newUserAnswers};
     }
   })
-
-  setState({...state, decks:decks})
+  setState({...state, decks:decks});
 }
 

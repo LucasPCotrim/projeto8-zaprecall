@@ -16,21 +16,13 @@
 }
 
 .status-display > .recall-results h2 {
-  font-family: 'Recursive';
-  font-style: normal;
   font-weight: 700;
   font-size: 18px;
-  line-height: 22px;
   color: #333333;
 }
 .status-display > .recall-results p {
   width: 222px;
-  font-family: 'Recursive';
-  font-style: normal;
-  font-weight: 400;
   font-size: 18px;
-  line-height: 22px;
-  text-align: center;
   color: #333333;
   margin-bottom: 14px;
 }
@@ -44,9 +36,7 @@
 }
 
 .status-display > .recall-progress {
-  font-weight: 400;
   font-size: 18px;
-  line-height: 22px;
   background-color: #FFFFFF;
   color: #333333;
 }
@@ -72,9 +62,6 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  font-family: 'Recursive';
-  font-style: normal;
-  font-weight: 400;
   font-size: 14px;
   line-height: 17px;
   color: #FFFFFF;

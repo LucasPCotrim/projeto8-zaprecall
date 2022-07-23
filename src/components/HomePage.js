@@ -1,6 +1,6 @@
-import React from 'react'
-import '../assets/css/HomePage.css'
-import logo_svg from '../assets/img/logo.svg' 
+import React from 'react';
+import '../assets/css/HomePage.css';
+import logo_svg from '../assets/img/logo.svg';
 
 
 export default function HomePage({state, setState}) {
@@ -15,7 +15,7 @@ export default function HomePage({state, setState}) {
       return ((deck.id===Number(event.target.value))
         ? {...deck, active: true}
         : {...deck})
-    })
+    });
     setState({...state, decks: new_decks});
     if (event.target.value !== 'DEFAULT'){
       update_button('enable', buttonDeckRef)
@@ -23,7 +23,6 @@ export default function HomePage({state, setState}) {
       update_button('disable', buttonDeckRef)
     }
   }
-
 
   function handleStartButton(){
     if (state.goal === 0) return;
@@ -46,14 +45,11 @@ export default function HomePage({state, setState}) {
     }
   }
 
-  
-
   const selectDeckRef = React.useRef(null);
   const buttonDeckRef = React.useRef(null);
   const inputGoalRef = React.useRef(null);
   const buttonGoalRef = React.useRef(null);
   
-
   return (
     <div className='home-page'>
       <img src={logo_svg} alt="Logo"/>
@@ -75,8 +71,6 @@ export default function HomePage({state, setState}) {
     </div>
   )
 }
-
-
 
 
 // Auxiliary components
@@ -101,7 +95,7 @@ function InputDeckScreen({state, selectDeckRef, handleSelectDeckChange, buttonDe
             <option className='deck-dropdown-select' value={deck.id} key={index}>
               {deck.name}
             </option>
-          )
+          );
         })}
       </select>
       <button
